@@ -1,21 +1,22 @@
-import {net} from "./global_dcl";
+import {default as net} from "./global_dcl.js";
 
-async function make_push(payload,callback){
+async function make_push(payload){
     try{
 
-        let query=await net.post(`/make_push`,payload);
+        let query=await net.post(`/make_push`,JSON.stringify(payload));
 
         let response=query.data;
 
-    } catch(error){
+    } catch (error) {
 
-        if(error.response){
+        console.error({
+          message: error.message,
+          name: error.name,
+          stack: error.stack,
+        });
+    
+        throw error;
+    
+      };
 
-        } else if(error.request){
-
-        } else{
-
-        };
-
-    };
 };

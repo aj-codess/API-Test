@@ -1,22 +1,28 @@
-import {net} from "./global_dcl";
+import {default as net} from "./global_dcl.js";
 
 
-async function signup_trigger(payload,callback){
+async function signup_trigger(payload){
+
     try{
 
-        let query=await net.post(`/signup`,payload);
+        let query=await net.post(`/signup`,JSON.stringify(payload));
 
         let response=query.data;
 
-    } catch(error){
+        return response;
 
-        if(error.response){
+    } catch (error) {
 
-        } else if(error.request){
+        console.error({
+          message: error.message,
+          name: error.name,
+          stack: error.stack,
+        });
+    
+        throw error;
+    
+      };
 
-        } else{
-
-        };
-
-    };
 };
+
+export default signup_trigger;
