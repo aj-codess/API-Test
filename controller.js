@@ -1,6 +1,7 @@
 import { default as BaseTrigger } from "./dependencies/base.js";
 import { default as newbie } from "./dependencies/newbie.js";
 import {default as signup_trigger} from "./dependencies/signup_trigger.js";
+import {default as pusher} from "./dependencies/make_push.js";
 
 class controller{
 
@@ -42,12 +43,13 @@ class controller{
 
     signup(payload,callback){
         try{
-            const returned_payload_grabber=async ()=>{
-                let payload=await this.signup(payload);
+            const returned_payload_grabber=()=>{
+                let response=this.signup(payload);
 
                 if(callback){
-                    callback()
+                    callback(response);
                 };
+
             };
 
             returned_paylaod_grabber();
@@ -57,6 +59,23 @@ class controller{
         };
 
     };
+
+
+    push(token_payload,callback){
+
+      try{
+
+        let response=this.pusher(token_payload);
+
+        if(callback){
+          callback(response.)
+        }
+
+      } catch(error){
+        console.error("error with push: ",error.message)
+      }
+
+    }
 
 };
 

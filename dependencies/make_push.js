@@ -20,3 +20,5 @@ async function make_push(payload){
       };
 
 };
+
+export default make_push;

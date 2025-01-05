@@ -5,11 +5,15 @@ async function signup_trigger(payload){
 
     try{
 
-        let query=await net.post(`/signup`,JSON.stringify(payload));
+      net.interceptors.request.use(async (config)=>{
 
-        let response=query.data;
+        const query = await net.post(`/signup`,JSON.stringify(payload));
 
-        return response;
+        return config;
+
+      });
+
+      net.transformRequest((data,headers))
 
     } catch (error) {
 
