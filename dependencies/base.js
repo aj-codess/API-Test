@@ -1,44 +1,42 @@
-import os from "node:os";
+import axios from "axios";
 
-class base_trigger {
+import authToken from "./global_dcl.js";
 
-    constructor() {
+const net=axios.create({
+    baseURL:"http://localhost:3000",
+    timeout:5000,
+    headers:{
+        "Content-Type":"application/json"
+    },
+    withCredentials:true
+});
 
-        this.device = () => {
-            return os.cpus()
-        };
 
-        this.Pre_Bearer = "";
-        this.Bearer = "";
-    }
 
-    token_setter(auth_value) {
+net.interceptors.request.use((config)=>{
 
-        if (auth_value.startsWith("Bearer")) {
+        config.headers["Authorization"]=`Bearer ${authToken.token}`;
 
-          this.Bearer = auth_value.replace("Bearer ", "");
+        return config;
 
-          this.token_localizer("Bearer",this.Bearer);
+},(error)=>{
 
-        } else if (auth_value.startsWith("Pre_Bearer")) {
+return Promise.reject(error);
 
-          this.Pre_Bearer = auth_value.replace("Pre_Bearer ", "");
+});
 
-          this.token_localizer("Pre_Bearer",this.Pre_Bearer);
 
+
+net.interceptors.response.use(
+    (response) => {
+        return response;
+    },
+    (error) => {
+        if (error.response?.status === 401) {
+            console.log("Unauthorized!");
         }
+        return Promise.reject(error);
+    }
+);
 
-      }
-      
-
-    token_localizer(name,token) {
-
-    };
-
-    token_local_getter(name){
-
-    };
-
-};
-
-export default base_trigger;
+export default net;
