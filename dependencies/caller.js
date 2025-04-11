@@ -6,7 +6,7 @@ import header_peek from "./peek_module.js";
 
 const post_req = async(url,payload)=>{
 
-    const response = await net.post(`${url}`, JSON.stringify(payload), {
+    const response = await net.post(`${url}`, payload, {
         headers: { "Content-Type": "application/json" },
         withCredentials: true,
     });
@@ -30,7 +30,7 @@ const get_req = async (url, payload) => {
 
 const delete_req=async(url,payload)=>{
 
-    const response = await net.delete(`${url}`, JSON.stringify(payload), {
+    const response = await net.delete(`${url}`, payload, {
         headers: { "Content-Type": "application/json" },
         withCredentials: true,
     });
