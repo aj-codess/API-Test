@@ -1,11 +1,10 @@
 import express from "express";
 
-import net from "base.js";
-import header_peek from "peek_module.js";
-import authToken from "global_dcl.js";
+import net from "./base.js";
+import header_peek from "./peek_module.js";
 
 
-const post_req=async(url,payload)=>{
+const post_req = async(url,payload)=>{
 
     const response = await net.post(`${url}`, JSON.stringify(payload), {
         headers: { "Content-Type": "application/json" },

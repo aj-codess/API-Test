@@ -1,5 +1,3 @@
-import Controller from "./controller.js";
+import caller from "./dependencies/caller.js";
 
-const appController = new Controller();
-
-console.log("refactoring needs to be done");
+caller("post","/auth/login",JSON.stringify({"email":"jagyei339@gmail.com","password":"crypto_2_get"}));
